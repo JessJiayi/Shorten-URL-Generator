@@ -3,3 +3,4 @@ sqlalchemy
 tornado
 wtforms
 werkzeug
+psycopg2
