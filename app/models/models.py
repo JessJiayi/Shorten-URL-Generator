@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.ext.declarative import declarative_base  # 模型继承的父类
-from sqlalchemy.dialects.mysql import BIGINT, VARCHAR, CHAR, DATETIME  # mysql字段类型
+from sqlalchemy.dialects.postgresql import BIGINT, VARCHAR, CHAR, DATE # mysql字段类型
 from sqlalchemy import Column  # 指定字段类
 
 Base = declarative_base()
@@ -12,8 +12,8 @@ class ShortUrl(Base):
     url = Column(VARCHAR(255), unique=True, nullable=False)
     code = Column(CHAR(8), unique=True, nullable=False)
     uuid = Column(CHAR(32), unique=True, nullable=False)
-    createdAt = Column(DATETIME, nullable=False)
-    updatedAt = Column(DATETIME, nullable=False)
+    createdAt = Column(DATE, nullable=False)
+    updatedAt = Column(DATE, nullable=False)
 
 
 class PageView(Base):
@@ -24,12 +24,11 @@ class PageView(Base):
     ip = Column(VARCHAR(100))
     address = Column(VARCHAR(255))
     method = Column(VARCHAR(20), nullable=False)
-    createdAt = Column(DATETIME, nullable=False)
-    updatedAt = Column(DATETIME, nullable=False)
+    createdAt = Column(DATE, nullable=False)
+    updatedAt = Column(DATE, nullable=False)
 
 
-if __name__ == "__main__":
-    import mysql.connector  
+if __name__ == "__main__":  
     from sqlalchemy import create_engine  
 
     mysql_configs = dict(
@@ -41,7 +40,7 @@ if __name__ == "__main__":
     )
 
     engine = create_engine(
-        'postgresql://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'.format(
+        'postgresql+psycopg2://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'.format(
             **mysql_configs
         ),
         encoding="utf-8",
