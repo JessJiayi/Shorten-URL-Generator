@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form id="form-data">
+    <div class="form-group">
+        {% raw xsrf_form_html() %}
+        <input type="url"
+               class="form-control"
+               id="input_url"
+               name="url"
+               placeholder="Enter link here"
+        >
+        <div id="error_url"></div>
+    </div>
+    <button id="btn-sub" type="button" class="btn btn-primary">Shorten URL</button>
+</form>
+{% end %}
+
+{% block foot %}
+<script>
+    $(document).ready(function () {
+        $("#btn-sub").click(function () {
+            var data = $("#form-data").serialize();
+            //console.log(data);
+            $.ajax({
+                url: "/",
+                type: "post",
+                data: data,
+                dataType: "json",
+                success: function (res) {
+                    //console.log(res);
+                    if (res.code == 1) {
+                        location.href = "/result?uuid=" + res.uuid;
+                    } else {
+                        var fields = ["url"];
+                        for (var k in fields) {
+                            if (typeof res[fields[k]] == "undefined") {
+                                $("#error_" + fields[k]).empty();
+                            } else {
+                                $("#error_" + fields[k]).empty();
+                                $("#error_" + fields[k]).append(
+                                    "<span class='text-danger'>" + res[fields[k]] + "</span>"
+                                );
+                            }
+                        }
+                    }
+                }
+            })
+        });
+    });
+</script>
+{% end %}

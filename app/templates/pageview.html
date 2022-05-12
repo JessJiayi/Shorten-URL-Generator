@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Original URL</span>
+    </div>
+    <input type="url"
+           class="form-control"
+           value="{{ data['su'].url }}"
+    >
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">shortened URL</span>
+    </div>
+    <input type="url"
+           class="form-control"
+           value="{{ handler.site_url }}{{ data['su'].code }}"
+    >
+</div>
+<hr>
+<p class="text-center">QR Code</p>
+<div id="qrcode" class="text-center"></div>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-warning" role="alert">
+            Visits of the day：{{ data['day'] }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-info" role="alert">
+            Total visits：{{ data['all'] }}
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    {% raw xsrf_form_html() %}
+    <table class="table table-bordered table-sm" id="pv_data">
+        <tr>
+            <th>id</th>
+            <th>access URL</th>
+            <th>access IP</th>
+            <th>access Address</th>
+            <th>access Method</th>
+            <th>access Time</th>
+        </tr>
+    </table>
+    <a id="load-more" data-id="1" class="btn btn-light">Load More</a>
+    <div id="error_msg"></div>
+</div>
+{% end %}
+
+{% block foot %}
+<script>
+    $(document).ready(function () {
+        $("#qrcode").qrcode({
+            render: "canvas",
+            width: 200,
+            height: 200,
+            text: "{{ handler.site_url }}{{ data['su'].code }}"
+        });
+
+        function getCookie(name) {
+            var c = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+            return c ? c[1] : undefined;
+        }
+
+        function pv(page) {
+            $.ajax({
+                url: "/pageview",
+                data: {page: page, _xsrf: getCookie("_xsrf"), uuid: "{{ data['su'].uuid }}"},
+                type: "post",
+                dataType: "json",
+                success: function (res) {
+                    if (res.code == 1) {
+                        var data = res.data;
+                        for (var k in data) {
+                            var html = "<tr><td>" + data[k]['id'] + "</td><td>" + data[k]['url'] + "</td><td class='text-success'>" + data[k]['ip'] + "</td><td class='text-danger'>" + data[k]['address'] + "</td><td>" + data[k]['method'] + "</td><td>" + data[k]['createdAt'] + "</td></tr>";
+                            $("#pv_data").append(html);
+                        }
+                    } else {
+                        $("#error_msg").empty();
+                        $("#error_msg").append(
+                            "<span class='text-danger'>No more data found!</span>"
+                        );
+                    }
+
+                }
+            })
+        }
+
+        pv(1);
+
+        $("#load-more").click(function () {
+            var page = parseInt($(this).attr("data-id")) + 1;
+            pv(page);
+            $(this).attr("data-id", page);
+        })
+    });
+</script>
+{% end %}

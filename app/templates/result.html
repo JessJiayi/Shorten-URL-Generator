@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<input type="url"
+       class="form-control"
+       value="{{ handler.site_url }}{{ data['su'].code }}"
+>
+<hr>
+<p class="text-center">QR Code</p>
+<div id="qrcode" class="text-center"></div>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <a class="btn btn-primary btn-block" href="/">Generate More</a>
+    </div>
+    <div class="col-md-6">
+        <a class="btn btn-success btn-block" href="/pageview?uuid={{ data['su'].uuid }}">Check Summary</a>
+    </div>
+</div>
+{% end %}
+
+{% block foot %}
+<script>
+    $(document).ready(function () {
+        $("#qrcode").qrcode({
+            render: "canvas",
+            width: 200,
+            height: 200,
+            text: "{{ handler.site_url }}{{ data['su'].code }}"
+        });
+    });
+</script>
+{% end %}

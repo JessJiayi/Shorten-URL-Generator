@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Shorten URL Generator</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+</head>
+<body>
+<div class="container">
+    <div class="row m-top">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">shortened URL</span>
+                        </div>
+                        <input type="url"
+                               class="form-control"
+                               value="http://xxxxxx.com/xxxxx/xxxxx/xxxxx"
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">shortened URL</span>
+                        </div>
+                        <input type="url"
+                               class="form-control"
+                               value="http://google.com"
+                        >
+                    </div>
+                    <hr>
+                    <p class="text-center">QR Code</p>
+                    <div id="qrcode" class="text-center"></div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning" role="alert">
+                                Visits of the day：100
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-info" role="alert">
+                                Total visits：10000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <tr>
+                                <th>id</th>
+                                <th>access URL</th>
+                                <th>access IP</th>
+                                <th>access Address</th>
+                                <th>access Method</th>
+                                <th>access Time</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>abc.com/abc123</td>
+                                <td class="text-success">161.185.160.93</td>
+                                <td class="text-danger">New York</td>
+                                <td>GET</td>
+                                <td>2022-05-12 11:50:00</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <nav class="d-flex justify-content-center">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Front Page</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Last Page</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#qrcode").qrcode({
+            render: "canvas",
+            width: 200,
+            height: 200,
+            text: "pageview.html"
+        });
+    });
+</script>
+</body>
+</html>
