@@ -1,6 +1,6 @@
 
 from sqlalchemy.ext.declarative import declarative_base 
-from sqlalchemy.dialects.postgresql import BIGINT, VARCHAR, CHAR, DATE 
+from sqlalchemy.dialects.postgresql import BIGINT, VARCHAR, CHAR, TIMESTAMP
 from sqlalchemy import Column 
 
 Base = declarative_base()
@@ -12,8 +12,8 @@ class ShortUrl(Base):
     url = Column(VARCHAR(255), unique=True, nullable=False)
     code = Column(CHAR(8), unique=True, nullable=False)
     uuid = Column(CHAR(32), unique=True, nullable=False)
-    createdAt = Column(DATE, nullable=False)
-    updatedAt = Column(DATE, nullable=False)
+    createdAt = Column(TIMESTAMP, nullable=False)
+    updatedAt = Column(TIMESTAMP, nullable=False)
 
 
 class PageView(Base):
@@ -24,8 +24,8 @@ class PageView(Base):
     ip = Column(VARCHAR(100))
     address = Column(VARCHAR(255))
     method = Column(VARCHAR(20), nullable=False)
-    createdAt = Column(DATE, nullable=False)
-    updatedAt = Column(DATE, nullable=False)
+    createdAt = Column(TIMESTAMP, nullable=False)
+    updatedAt = Column(TIMESTAMP, nullable=False)
 
 
 if __name__ == "__main__":

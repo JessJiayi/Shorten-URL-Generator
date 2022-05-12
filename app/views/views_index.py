@@ -28,7 +28,6 @@ class IndexHandler(CommonHandler):
         res = dict(code=0)
         form = ShortUrlForm(MultiDict(self.params))
         if form.validate():
-            print(self.session.query(ShortUrl).filter_by(url=form.data["url"]).first())
             try:
                 res["code"] = 1
                 short_url_by_url = self.session.query(ShortUrl).filter_by(
