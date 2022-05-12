@@ -41,7 +41,7 @@ if __name__ == "__main__":
     )
 
     engine = create_engine(
-        'mysql+mysqlconnector://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'.format(
+        'postgresql://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'.format(
             **mysql_configs
         ),
         encoding="utf-8",
