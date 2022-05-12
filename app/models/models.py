@@ -5,19 +5,7 @@ from sqlalchemy import Column  # 指定字段类
 
 Base = declarative_base()
 metadata = Base.metadata
-# 1.短网址信息表
-"""
-设计字段
-1.编号：id，主键，自动递增，大整型
-2.原始网址：url，唯一，非空，变长字符串类型
-3.缩短码：code，唯一，非空，定长字符串类型
-4.唯一标识符：uuid，唯一，非空，定长字符串类型
-5.创建时间：createdAt，非空，日期时间类型
-6.修改时间：updatedAt，非空，日期时间类型
-"""
 
-
-# 短网址信息模型
 class ShortUrl(Base):
     __tablename__ = "shorturl"
     id = Column(BIGINT, primary_key=True)
@@ -28,20 +16,6 @@ class ShortUrl(Base):
     updatedAt = Column(DATETIME, nullable=False)
 
 
-# 2.短网址统计表
-"""
-1.编号：id，主键，自动递增，大整型
-2.短网址信息ID：shorturl_id，非空，大整型
-3.访问URL：url，非空，变长字符串类型
-4.访问IP：ip，变长字符串类型
-5.访问地址：address，变长字符串类型
-6.访问方法：method，非空，变长字符串类型
-7.创建时间：createdAt，非空，日期时间类型
-8.修改时间：updatedAt，非空，日期时间类型
-"""
-
-
-# 统计模型
 class PageView(Base):
     __tablename__ = "pageview"
     id = Column(BIGINT, primary_key=True)
@@ -55,15 +29,15 @@ class PageView(Base):
 
 
 if __name__ == "__main__":
-    import mysql.connector  # 数据库连接驱动
-    from sqlalchemy import create_engine  # 创建连接引擎
+    import mysql.connector  
+    from sqlalchemy import create_engine  
 
     mysql_configs = dict(
-        db_host="127.0.0.1",
-        db_name="short_url",
-        db_port=3306,
-        db_user="root",
-        db_pwd="root"
+        db_host="ec2-54-172-175-251.compute-1.amazonaws.com",
+        db_name="d8nt0t0evtddcp",
+        db_port=5432,
+        db_user="ocklswkhlicvau",
+        db_pwd="0ef0864eb874ca4af692ff36d91ed54c5ca6bf25f7d5e10f84e3cda62b59a3c8"
     )
 
     engine = create_engine(
@@ -75,4 +49,4 @@ if __name__ == "__main__":
     )
 
     metadata.create_all(engine)
-    print("生成成功！")
+    print("successful")
