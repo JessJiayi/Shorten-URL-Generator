@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-from sqlalchemy.ext.declarative import declarative_base  # 模型继承的父类
-from sqlalchemy.dialects.postgresql import BIGINT, VARCHAR, CHAR, DATE # mysql字段类型
-from sqlalchemy import Column  # 指定字段类
+
+from sqlalchemy.ext.declarative import declarative_base 
+from sqlalchemy.dialects.postgresql import BIGINT, VARCHAR, CHAR, DATE 
+from sqlalchemy import Column 
 
 Base = declarative_base()
 metadata = Base.metadata
@@ -28,7 +28,8 @@ class PageView(Base):
     updatedAt = Column(DATE, nullable=False)
 
 
-if __name__ == "__main__":  
+if __name__ == "__main__":
+    import mysql.connector  
     from sqlalchemy import create_engine  
 
     mysql_configs = dict(
@@ -48,4 +49,4 @@ if __name__ == "__main__":
     )
 
     metadata.create_all(engine)
-    print("successful")
+    print("sucess！")

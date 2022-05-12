@@ -23,14 +23,13 @@ class CustomApplication(tornado.web.Application):
     @property
     def db_session(self):
         engine = create_engine(
-            'mysql+mysqlconnector://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'.format(
+            'postgresql+psycopg2://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'.format(
                 **mysql_configs
             ),
             encoding="utf-8",
             echo=True,
             pool_size=100,
             pool_recycle=10,
-            connect_args={"charset": 'utf8'}
         )
         Session = sessionmaker(
             bind=engine,

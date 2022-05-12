@@ -28,7 +28,9 @@ class IndexHandler(CommonHandler):
         res = dict(code=0)
         form = ShortUrlForm(MultiDict(self.params))
         if form.validate():
+            print(self.session.query(ShortUrl).filter_by(url=form.data["url"]).first())
             try:
+                res["code"] = 1
                 short_url_by_url = self.session.query(ShortUrl).filter_by(
                     url=form.data["url"]
                 ).first()
@@ -44,7 +46,6 @@ class IndexHandler(CommonHandler):
                     self.session.add(shorturl)
                 else:
                     uuid_data = short_url_by_url.uuid
-                res["code"] = 1
                 res["uuid"] = uuid_data
             except Exception as e:
                 self.session.rollback()

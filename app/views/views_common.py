@@ -7,7 +7,7 @@ import tornado.web
 class CommonHandler(tornado.web.RequestHandler):
     @property
     def site_url(self):
-        return "http://127.0.0.1:8000/"
+        return "https://shortu-r-l.herokuapp.com/"
 
 
     @property
