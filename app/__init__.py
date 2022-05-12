@@ -10,7 +10,7 @@ from app.urls import urls
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-define("port", type=int, default=8000, help="运行端口")
+define("port", type=int, default=process.env.PORT, help="runing port")
 
 
 class CustomApplication(tornado.web.Application):
