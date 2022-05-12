@@ -10,7 +10,7 @@ from app.urls import urls
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-define("port", type=int, default=process.env.PORT, help="runing port")
+define("port", type=int, default=8000, help="runing port")
 
 
 class CustomApplication(tornado.web.Application):
@@ -47,5 +47,5 @@ def create_app():
         CustomApplication(),
         xheaders=True
     )
-    http_server.listen(options.port)
+    http_server.listen(int(os.environ.get("PORT", 8000)))
     tornado.ioloop.IOLoop.instance().start()
