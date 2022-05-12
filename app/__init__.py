@@ -47,5 +47,5 @@ def create_app():
         CustomApplication(),
         xheaders=True
     )
-    http_server.listen(int(os.environ.get("PORT", 8000)))
+    http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
